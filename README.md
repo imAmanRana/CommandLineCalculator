@@ -1,2 +1,2 @@
 # CommandLineCalculator
-CMD Calculator Evaluates Expressions
+CLI Calculator
