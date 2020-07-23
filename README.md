@@ -1,14 +1,13 @@
 # CommandLineCalculator
-CLI Calculator. Performs simple calculations using Integer Expression Language (IEL).
-  
-    Expression | Value
-    --- | ---
-    add(1, 2) | 3
-    add(1, mult(2, 3)) | 7
-    mult(add(2, 2), div(9, 3)) | 12
-    let(a, 5, add(a, a)) | 10
-    let(a, 5, let(b, mult(a, 10), add(b, a))) | 55
-    let(a, let(b, 10, add(b, b)), let(b, 20, add(a, b))) | 40
+CLI Calculator. Performs simple calculations using the Integer Expression Language (IEL).
+ Expression | Value
+ ---------- | ------
+ add(1, 2) | 3
+ add(1, mult(2, 3)) | 7
+ mult(add(2, 2), div(9, 3)) | 12
+ let(a, 5, add(a, a)) | 10
+ let(a, 5, let(b, mult(a, 10), add(b, a))) | 55
+ let(a, let(b, 10, add(b, b)), let(b, 20, add(a, b))) | 40
 
 ### Requirements
 1. Java JDK min 1.8
@@ -34,9 +33,8 @@ CLI Calculator. Performs simple calculations using Integer Expression Language (
 	java -jar  CommandLineCalculator.jar "mult(add(2, 2), div(9, 3))" DEBUG
 	java -jar  CommandLineCalculator.jar "let(a, 5, add(a, a))"
  ```
-
-
-###Technical Details
+ 
+### Technical Details
 1. **Logging**
 
    The application uses _java.util.logging_ api.
