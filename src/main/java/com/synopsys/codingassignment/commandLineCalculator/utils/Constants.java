@@ -13,7 +13,6 @@ public class Constants {
 
 	public static final int LEFT_PARENTHESIS = '(';
 	public static final int RIGHT_PARENTHESIS = ')';
-	public static final int COMMA = ',';
 
 	public static final String LET_EXPRESSION = "let";
 	public static final String ADD_EXPRESSION = "add";
@@ -25,4 +24,5 @@ public class Constants {
 	public static final String SUBSTRACT = "-";
 	public static final String MULTIPLY = "*";
 	public static final String DIVISION = "/";
+	public static final String EQUALS = "=";
 }

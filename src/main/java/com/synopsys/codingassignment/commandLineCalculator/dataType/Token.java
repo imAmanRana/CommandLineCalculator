@@ -6,6 +6,8 @@ package com.synopsys.codingassignment.commandLineCalculator.dataType;
 import com.synopsys.codingassignment.commandLineCalculator.utils.TokenType;
 
 /**
+ * Single non-breakable unit of expression
+ * 
  * @author Amandeep Singh
  * @see <a href="https://www.linkedin.com/in/imamanrana/" target=
  *      "_blank">LinkedIn Profile</a>

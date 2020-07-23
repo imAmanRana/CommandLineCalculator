@@ -11,5 +11,5 @@ package com.synopsys.codingassignment.commandLineCalculator.utils;
  */
 public enum TokenType {
 
-	INTEGER, CHARACTER, OPERATOR;
+	NUMBER, CHARACTER, OPERATOR;
 }

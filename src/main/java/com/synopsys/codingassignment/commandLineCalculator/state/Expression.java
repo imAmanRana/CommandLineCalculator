@@ -11,6 +11,7 @@ import java.util.Set;
 import com.synopsys.codingassignment.commandLineCalculator.dataType.Token;
 
 /**
+ * Holds the state of the program
  * @author Amandeep Singh
  * @see <a href="https://www.linkedin.com/in/imamanrana/" target=
  *      "_blank">LinkedIn Profile</a>
