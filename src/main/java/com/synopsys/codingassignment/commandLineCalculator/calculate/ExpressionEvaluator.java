@@ -10,6 +10,7 @@ import static com.synopsys.codingassignment.commandLineCalculator.utils.Constant
 
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Logger;
 
 import com.synopsys.codingassignment.commandLineCalculator.dataType.Token;
 import com.synopsys.codingassignment.commandLineCalculator.exception.CalculatorException;
@@ -26,6 +27,8 @@ import com.synopsys.codingassignment.commandLineCalculator.utils.TokenType;
  */
 public class ExpressionEvaluator {
 
+	private final static Logger LOGGER = Logger.getLogger(ExpressionEvaluator.class.getName());
+
 	/**
 	 * <p>
 	 * Performs input evaluation.<br>
@@ -36,6 +39,8 @@ public class ExpressionEvaluator {
 	 * @return evaluated value
 	 */
 	public static Token evaluate(final Expression exp) {
+
+		LOGGER.fine("Exceuting : " + Thread.currentThread().getStackTrace()[1].getMethodName());
 
 		List<Token> tokens = exp.getTokens();
 		int counter = 0;
@@ -66,6 +71,8 @@ public class ExpressionEvaluator {
 	 * @return the first non null token index
 	 */
 	private static int fetchNonNullNextTokenIndex(final List<Token> tokens, final int startIndex) {
+		LOGGER.fine("Exceuting : " + Thread.currentThread().getStackTrace()[1].getMethodName());
+
 		int index = -1;
 		for (int i = startIndex; i < tokens.size(); i++) {
 			if (Objects.nonNull(tokens.get(i))) {
@@ -82,6 +89,8 @@ public class ExpressionEvaluator {
 	 * @param tokens - input list of pre-fix notation tokens
 	 */
 	public static void evaluateVariables(final List<Token> tokens) {
+
+		LOGGER.fine("Exceuting : " + Thread.currentThread().getStackTrace()[1].getMethodName());
 
 		int counter = 0;
 		while (counter < tokens.size()) {
@@ -107,6 +116,8 @@ public class ExpressionEvaluator {
 	 * @return computed value of <code>variable</code>
 	 */
 	private static Token computeVariableValue(final Token variable, final int startIndex, final List<Token> tokenList) {
+
+		LOGGER.fine("Exceuting : " + Thread.currentThread().getStackTrace()[1].getMethodName());
 
 		Token value = null;
 		int counter = startIndex + 1;
@@ -150,6 +161,8 @@ public class ExpressionEvaluator {
 	private static Token checkAndComputeEffectiveValue(final int startIndex, final Token computedValue,
 			final List<Token> tokenList) {
 
+		LOGGER.fine("Exceuting : " + Thread.currentThread().getStackTrace()[1].getMethodName());
+
 		int index = fetchNonNullNextTokenIndex(tokenList, startIndex + 1);
 		Token effectiveValue = null;
 		Token operand1;
@@ -185,7 +198,10 @@ public class ExpressionEvaluator {
 	private static Token evaluateOperator(final Token operator, final int startIndex, final List<Token> tokenList,
 			int offset) {
 
+		LOGGER.fine("Exceuting : " + Thread.currentThread().getStackTrace()[1].getMethodName());
+
 		if (startIndex + offset + 2 > tokenList.size()) {
+			LOGGER.severe("Inconsistant Program State");
 			throw new CalculatorException("Inconsistant Program State");
 		}
 		Token operand, op1 = null, op2 = null, result;
@@ -221,6 +237,11 @@ public class ExpressionEvaluator {
 		}
 
 		tokenList.set(startIndex + offset, null);
+		if (Objects.isNull(op1) || Objects.isNull(op2)) {
+			LOGGER.severe("Operands cannot be null. Invalid expression");
+			throw new CalculatorException("Operands cannot be null. Invalid expression");
+		}
+
 		result = evaluateExpression(operator, op1, op2);
 		return result;
 	}
@@ -236,6 +257,9 @@ public class ExpressionEvaluator {
 	 */
 	private static void replaceVariableInExpression(final List<Token> tokenList, final int startIndex,
 			final Token variable, final Token value) {
+
+		LOGGER.fine("Exceuting : " + Thread.currentThread().getStackTrace()[1].getMethodName());
+
 		int counter = startIndex;
 		boolean isSameVariableDefinedAgain = false;
 		while (!isSameVariableDefinedAgain && counter < tokenList.size()) {
@@ -264,6 +288,13 @@ public class ExpressionEvaluator {
 	 * @return computed value of operator
 	 */
 	private static Token evaluateExpression(Token operator, Token operand1, Token operand2) {
+
+		LOGGER.fine("Exceuting : " + Thread.currentThread().getStackTrace()[1].getMethodName());
+
+		/*
+		 * result computed in long, because the integers value can range from
+		 * Integer.MIN_VALUE To Integer.MAX_VALUE
+		 */
 		Long result = null;
 		switch (operator.getValue().toString()) {
 		case ADD:

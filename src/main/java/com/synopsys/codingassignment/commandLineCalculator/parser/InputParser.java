@@ -22,7 +22,9 @@ import java.io.StreamTokenizer;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
+import com.synopsys.codingassignment.commandLineCalculator.CommandLineCalculator;
 import com.synopsys.codingassignment.commandLineCalculator.dataType.Token;
 import com.synopsys.codingassignment.commandLineCalculator.state.Expression;
 import com.synopsys.codingassignment.commandLineCalculator.utils.TokenType;
@@ -37,6 +39,8 @@ import com.synopsys.codingassignment.commandLineCalculator.utils.TokenType;
  */
 public class InputParser {
 
+	private final static Logger LOGGER = Logger.getLogger(InputParser.class.getName());
+
 	/**
 	 * Parses input
 	 * 
@@ -45,6 +49,8 @@ public class InputParser {
 	 * @throws IOException
 	 */
 	public static List<Token> parseToPreFixNotation(final Expression expression) throws IOException {
+
+		LOGGER.fine("Exceuting : " + Thread.currentThread().getStackTrace()[1].getMethodName());
 
 		Reader reader = new StringReader(expression.getInput());
 		StreamTokenizer st = new StreamTokenizer(reader);
@@ -61,13 +67,12 @@ public class InputParser {
 				operator = mapToOperator(st.sval);
 
 				if ("=".equals(operator.getValue().toString())) {
-					// fetch the variable name
-					operator = readVariable(st);
-					tokens.add(operator);
-					expression.getVariables().add(operator.getValue().toString());
-
+					// do nothing
 				} else {
 					tokens.add(operator);
+					if (operator.getTokenType() != TokenType.OPERATOR) {
+						expression.getVariables().add(operator.getValue().toString());
+					}
 				}
 				break;
 			case LEFT_PARENTHESIS:
@@ -83,6 +88,7 @@ public class InputParser {
 
 	/**
 	 * Maps input word to {@link Token}
+	 * 
 	 * @param word
 	 * @return mapped Token
 	 */
@@ -111,21 +117,6 @@ public class InputParser {
 		}
 
 		return token;
-	}
-
-	/**
-	 * 
-	 * @param st
-	 * @return
-	 * @throws IOException
-	 */
-	private static Token readVariable(final StreamTokenizer st) throws IOException {
-		String variable = null;
-		if (st.nextToken() == LEFT_PARENTHESIS && st.nextToken() == StreamTokenizer.TT_WORD) {
-			variable = st.sval;
-		}
-
-		return new Token(variable, TokenType.CHARACTER);
 	}
 
 }
