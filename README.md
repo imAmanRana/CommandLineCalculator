@@ -57,4 +57,7 @@ CLI Calculator. Performs simple calculations using the Integer Expression Langua
     - Variable names are case-sensitive.
     - Proper number of opening & closing brackets are required.
     - Variable name is not limited to 1 character, it can be of any number of characters. eg: `let(longVariableName,4,sub(10,longVariableName))`
-   
+
+3. Continuous Integration Job setup
+    - [Git workflow job](https://github.com/imAmanRana/CommandLineCalculator/actions) is setup to build the project on every pull request to *master* branch.
+    - Only if the project is build successfully without any errors & without any junit fails, the pull request can be merged to master.
